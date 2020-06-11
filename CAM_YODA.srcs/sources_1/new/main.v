@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 25.05.2020 20:56:53
+// Create Date: 11.06.2020 15:30:45
 // Design Name: 
-// Module Name: Hash_function
+// Module Name: main
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Hash_function(
+module main(
 
     );
 endmodule
