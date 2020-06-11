@@ -1,6 +1,5 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-
 //////////////////////////////////////////////////////////////////////////////////
 module search(
 input clk, user_input, reset, next, start, we, oe, cs, //user input  = sw, next and start are buttons
@@ -27,7 +26,7 @@ always@(posedge clk)begin
     if(start)begin//wait for button push to start
     for (mem_add= 0; mem_add<=560;mem_add=mem_add+1)begin
         if(data == user_input)begin
-            out <= data;
+            out <= mem_add;
             found <= 1;
         end
         while(found)begin//stays in loop until button is pressed
