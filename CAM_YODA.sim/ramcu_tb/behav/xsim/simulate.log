@@ -1,0 +1,18 @@
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+clkcs we oeaddrdata
+0   0  0   0 000  Z
+1   0  0   0 000  Z
+write 99 to mem[1]
+0   1  1   0 001  Z
+1   1  1   0 001  Z
+write junk into top level data_value buffer
+0   0  0   0 001  Z
+1   0  0   0 001  Z
+check reading back data
+0   1  0   1 001  x
+1   1  0   1 001  Z
+write more junk into topleveldata_value
+0   0  0   1 001  Z
+1   0  0   1 001  Z
+0   0  0   1 001  Z
