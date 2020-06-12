@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="44" Path="C:/Users/Jonny/CAM_YODA/CAM_YODA.xpr">
+<Project Version="7" Minor="44" Path="C:/Users/Jamie Aronson/Documents/Vivado Projects/CAM_YODA/CAM_YODA.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="aba7577a9c94454a8051c9ae6be25c5b"/>
@@ -139,6 +139,7 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/ramcu_tb/new/ramcu_tb.v">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -146,7 +147,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="ramcu_tb"/>
+        <Option Name="TopModule" Val="SS_driver"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>

@@ -22,11 +22,13 @@
 
 module RAM_interface(
     clock,  //clock input
-    address,    //address input
-    data, //data is bi-directional
-    cs, //chip select
-    we, //write-enabled/read-enabled -> 1 means write, 0 means read
-    oe //output enabled
+    we, //write enable
+    w_addr, //write address
+    w_data,//write data
+    re,//read enable
+    r_addr,//read address
+    cs,//chip select
+    r_data//output for read operation
     );
     
     //parameters
@@ -35,22 +37,18 @@ module RAM_interface(
     parameter RAM_DEPTH = 1<<ADDR_WIDTH;
     
     //define inputs
-    input clock,cs,we,oe;
-    input [ADDR_WIDTH-1:0] address;
+    input clock,we,re,cs;
+    input [ADDR_WIDTH-1:0] r_addr, w_addr;
     
     //data is bi-directional
-    inout[DATA_WIDTH-1:0] data;
+    inout[DATA_WIDTH-1:0] w_data;
+    output reg[DATA_WIDTH-1:0] r_data;
     //preivate registers
     reg [DATA_WIDTH-1:0] mem [0:RAM_DEPTH-1]; // Set up the memory array
-    reg [DATA_WIDTH-1:0] r_data;              // copy of data value to return
-    reg r_oe; // delayed oe, r_oeupdates only when rdataupdated
     always@ (posedge clock)begin
-        if (cs)begin
-            if (we) 
-                mem[address] <= data;
-                r_data<= mem[address];
-                end
-            r_oe<= oe;
-            end
-        assign data = (oe&& cs && !we)? r_data: 8'bz;
+        if(cs)begin
+            if (we) mem[w_addr] <= w_data;
+            if (re) r_data<= mem[r_addr];
+        end
+    end
 endmodule
