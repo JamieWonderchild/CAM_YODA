@@ -6,7 +6,7 @@
 //allow for searching of individual characters
 //////////////////////////////////////////////////////////////////////////////////
 module search(
-input clk, user_input, reset, next, start, we, oe, cs, //user input  = sw, next and start are buttons
+input clk, user_input, reset, next, start, cs, we, w_addr, re, w_data, //user input  = sw, next and start are buttons
     output data_out // output returns an address in binary up to 560 or 1111111111 to signify no match found
     );
     reg [15:0] mem_add = 0;
@@ -14,18 +14,20 @@ input clk, user_input, reset, next, start, we, oe, cs, //user input  = sw, next 
     reg data;
     reg out = 0;
     reg started;
-    reg [16:0] char1;
-    reg [16:0] char2;
-    reg [16:0] input1;
-    reg [16:0] input2;
-    
+    reg [15:0] char1;
+    reg [15:0] char2;
+    reg [15:0] input1;
+    reg [15:0] input2;
+   
     RAM_interface ram(
-    .clock(clk), 
-    .address(mem_add),    //address input
-    .data(data), //data is bi-directional
-    .cs(cs), //chip select
-    .we(we), //write-enabled/read-enabled -> 1 means write, 0 means read
-    .oe(oe) //output enabled
+    .clock(clk),  //clock input
+    .we(we), //write enable
+    .w_addr(w_addr), //write address
+    .w_data(w_data),//write data
+    .re(re),//read enable
+    .r_addr(mem_add),//read address
+    .cs(cs),//chip select
+    .r_data(data)//output for read operation
     );
     
 always@(posedge clk)begin
