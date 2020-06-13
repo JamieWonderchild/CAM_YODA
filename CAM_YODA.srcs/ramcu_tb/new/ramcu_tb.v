@@ -2,10 +2,10 @@
 // Testbench for the dual port dp_ramRAM control memory unit
 module hdp_ram_tb();  
 reg  clk, cs, we, re;
-reg  [7:0] w_data;  // this is the connection to dp_ramwrite data port
-reg  [7:0] w_addr;  // address to write to
-reg  [7:0] r_addr;  // address to read from
-wire [7:0] r_data;  // link to data returned on a read
+reg  [15:0] w_data;  // this is the connection to dp_ramwrite data port
+reg  [9:0] w_addr;  // address to write to
+reg  [9:0] r_addr;  // address to read from
+wire [15:0] r_data;  // link to data returned on a read
 // Instantiate the module to be tested
 RAM_interface hdp_ram_uut(clk,we,w_addr,w_data,re,r_addr,cs,r_data);
 initial begin  
@@ -13,7 +13,7 @@ initial begin
 clk= 0; cs    = 0; we    = 1;
 re    = 0; r_addr= 1; w_addr= 1;
 w_data= 100;
-$display("clkcs we re raddrwaddrrdatawdata");
+$display("clkcs we re raddr waddr rdata wdata");
 $monitor("%b   %b  %b  %b  %03d   %03d   %03d   %03d",clk,cs,we,re,r_addr,w_addr,r_data,w_data);
 // set up to write to 100 to [1] and disable read:
 cs <= 1; #5 $display("write 100 to [1]");  

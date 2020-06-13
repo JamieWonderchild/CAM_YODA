@@ -27,8 +27,9 @@ module RAM_interface(
     w_data,//write data
     re,//read enable
     r_addr,//read address
-    cs,//chip select
-    r_data//output for read operation
+    cs,//chip select (ignores inputs if cs = 0)
+    r_data,//output for read operation
+    w_done //output for successul write
     );
     
     //parameters
@@ -39,9 +40,7 @@ module RAM_interface(
     //define inputs
     input clock,we,re,cs;
     input [ADDR_WIDTH-1:0] r_addr, w_addr;
-    
-    //data is bi-directional
-    inout[DATA_WIDTH-1:0] w_data;
+    input[DATA_WIDTH-1:0] w_data;
     output reg[DATA_WIDTH-1:0] r_data;
     //preivate registers
     reg [DATA_WIDTH-1:0] mem [0:RAM_DEPTH-1]; // Set up the memory array
