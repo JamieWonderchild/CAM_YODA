@@ -1,17 +1,16 @@
 module SS_driver(
     input Clk, Reset,
-    input [3:0] BCD3, BCD2, BCD1, BCD0, // Binary-coded decimal input
+    input [3:0] BCD2, BCD1, BCD0, // Binary-coded decimal input
     output reg [3:0] SegmentDrivers, // Digit drivers (active low)
     output reg [7:0] SevenSegment // Segments (active low)
 );
 
 
 // Make use of a subcircuit to decode the BCD to seven-segment (SS)
-wire [6:0]SS[3:0];
+wire [6:0]SS[2:0];
 BCD_Decoder BCD_Decoder0 (BCD0, SS[0]); //think about what we need to display -- address where the content is found.. decimal number
 BCD_Decoder BCD_Decoder1 (BCD1, SS[1]);
 BCD_Decoder BCD_Decoder2 (BCD2, SS[2]);
-BCD_Decoder BCD_Decoder3 (BCD3, SS[3]);
 
 
 // Counter to reduce the 100 MHz clock to 762.939 Hz (100 MHz / 2^17)
