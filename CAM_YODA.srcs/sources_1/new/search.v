@@ -3,14 +3,14 @@
 
 //////////////////////////////////////////////////////////////////////////////////
 module search(
-input clk, user_input, start_add, we, re, w_data, next, //user input  = sw, next and start are buttons
+input clk, user_input, re, we, next, //
     output data_out // output returns an address in binary up to 560 or 1111111111 to signify no match found
     );
     reg [15:0] mem_add = 0;
     reg [15:0] stor_add = 0;
-    reg [15:0] lastDataStored=0;
+    reg [15:0] w_data=0;
     reg cs = 0;
-    reg found;
+    reg found = 1;
     reg data;
     reg out = 0;
     reg [15:0] char1;
@@ -21,7 +21,7 @@ input clk, user_input, start_add, we, re, w_data, next, //user input  = sw, next
     RAM_interface ram(
     .clock(clk),  //clock input
     .we(we), //write enable
-    .w_addr(w_addr), //write address
+    .w_addr(stor_add), //write address
     .w_data(w_data),//write data
     .re(re),//read enable
     .r_addr(mem_add),//read address
@@ -32,8 +32,7 @@ input clk, user_input, start_add, we, re, w_data, next, //user input  = sw, next
 always@(posedge clk)begin
     cs = 0;
     if(found&next)begin
-    found <=0;
-    mem_add = start_add;
+        found <=0;
     end
     
     if(re&(~found))begin//read enable mode
@@ -70,19 +69,24 @@ always@(posedge clk)begin
                 found <= 1;
             end
         end
-    end else if (we&(~re))begin//write enable mode
-        if(w_data!=lastDataStored)begin
-            lastDataStored <= w_data;
-            cs <= 1;
+    end else if (we&(~re)&next)begin//write enable mode
+            if(w_data != user_input)begin
+                w_data <= user_input;
+                if(stor_add)begin
+                    stor_add <= stor_add + 1;
+                end
+                cs <= 1;
+            end
         end
-    end
       
         if(mem_add == 560)begin
             out <= 'b1111111111;
             mem_add <= 0;
         end
     end 
-mem_add = mem_add+1;
+if(~found)begin
+    mem_add = mem_add+1;
+end
 end
 assign data_out = out;
    
