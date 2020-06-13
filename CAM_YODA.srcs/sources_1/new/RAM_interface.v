@@ -28,7 +28,8 @@ module RAM_interface(
     re,//read enable
     r_addr,//read address
     cs,//chip select (ignores inputs if cs = 0)
-    r_data//output for read operation
+    r_data,//output for read operation
+    w_done //output for successul write
     );
     
     //parameters
