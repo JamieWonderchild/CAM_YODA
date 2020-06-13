@@ -1,0 +1,10 @@
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+clkcs we re raddr waddr rdata wdata
+0   1  1  0  001   001   x   100
+write 100 to [1]
+1   1  1  0  001   001   x   100
+0   1  1  1  001   002   x   101
+write 101 to [2] and read from 1
+1   1  1  1  001   002   100   101
+0   1  1  1  001   002   100   101
