@@ -11,10 +11,10 @@ initial begin
 clk= 0; next = 0; we    = 0;
 re    = 0; user_input = 0; 
 w_data= 100;
-$display("clkcs we re raddr waddr rdata wdata");
-$monitor("%b   %b  %b  %b  %03d   %03d   %03d   %03d",clk,cs,we,re,r_addr,w_addr,r_data,w_data);
-// set up to write to 100 to [1] and disable read:
-cs <= 1; #5 $display("write 100 to [1]");  
+$display("clk we re user_input data_out");
+$monitor("%b   %b  %b  %b  %03d   %03d   %03d   %03d",clk,we,re,user_input,data_out);
+// set up to search for binsry value of AB which would be 0100000101000010
+re <= 1; #5 $display("read contents matching AB");  
 // (the #5 is here to force the display output)
 #5 clk= ~clk; #5 clk= ~clk; // do a clock pulse
 re <= 1; w_addr<= 2; w_data<= 101;
